@@ -27,8 +27,6 @@ public class Crossroad extends Environment {
 		return Literal.parseLiteral("pos("+agentName+ "," + 1 + "," + 1 + ")");
 	}
 
-	private CrossroadModel model;
-	private CrossroadView view;
 	public Map<String , Car> cars;
 	
 	@Override
@@ -44,9 +42,7 @@ public class Crossroad extends Environment {
 			}
 		}
 		//set up model
-		model = new CrossroadModel()	;
-		view  = new CrossroadView(model);
-		model.setView(view);
+		CrossroadGraphic gr = new CrossroadGraphic();
     }
 	
 	@Override
@@ -102,65 +98,4 @@ public class Crossroad extends Environment {
 			this.gy = gy;
 		}
 	}
-
-	class CrossroadModel extends GridWorldModel {
-		Random random = new Random(System.currentTimeMillis());
-		final static int gridSize = 100;
-
-		private CrossroadModel() {
-			super(gridSize, gridSize, 2);
-
-			// initial location of agents
-			try {
-				for (String ag : allAgents){
-					try {
-						setAgPos(Arrays.asList(allAgents).indexOf(ag), (int) cars.get(ag).x, (int) cars.get(ag).y);
-					} catch (Exception e){
-						e.printStackTrace();
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	class CrossroadView extends GridWorldView {
-
-			public CrossroadView(CrossroadModel model) {
-				super(model, "Crossroad", 600);
-				defaultFont = new Font("Arial", Font.BOLD, 18); // change default font
-				setVisible(true);
-				repaint();
-			}
-
-			/** draw application objects */
-			@Override
-			public void draw(Graphics g, int x, int y, int object) {
-//				switch (object) {
-//					case MarsEnv.GARB:
-//						drawGarb(g, x, y);
-//						break;
-//				}
-			}
-
-			@Override
-			public void drawAgent(Graphics g, int x, int y, Color c, int id) {
-				String label = "R"+(id+1);
-				c = Color.blue;
-				if (id == 0) {
-					c = Color.yellow;
-				}
-				super.drawAgent(g, x, y, c, -1);
-				g.setColor(Color.black);
-				super.drawString(g, x, y, defaultFont, label);
-				repaint();
-			}
-
-			public void drawGarb(Graphics g, int x, int y) {
-				super.drawObstacle(g, x, y);
-				g.setColor(Color.white);
-				drawString(g, x, y, defaultFont, "G");
-			}
-
-		}
 }
