@@ -47,6 +47,11 @@ public class CrossroadGraphic extends JFrame {
     public void setModel(CrossroadModel model){
         this.model = model;
         this.cars = model.cars;
+        model.graphic = this;
+    }
+
+    void modelChanged(){
+        canvas.repaint();
     }
 
 
@@ -79,7 +84,7 @@ public class CrossroadGraphic extends JFrame {
             center2 = (int)(width*0.65f/1.1f);
             right   = (int)(width*1.05f/1.1f);
 
-            carRadius = (int)(left*0.8f);
+            carRadius = (int)(left*0.9f);
 
             verticalline = width/2;
             horizontalline = (middle-top)/2+top;

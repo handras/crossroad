@@ -1,3 +1,5 @@
+import java.sql.Time;
+
 public class Car {
 
     String name;
@@ -20,5 +22,12 @@ public class Car {
         this.sy = sy;
         this.gx = gx;
         this.gy = gy;
+    }
+
+    public void step(int steptime){
+        try {
+            this.x += this.sx * steptime / 1000f;
+            this.y += this.sy * steptime / 1000f;
+        }catch (Exception e){}
     }
 }

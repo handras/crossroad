@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
 import jason.asSyntax.Structure;
+import jason.control.ExecutionControl;
 import jason.environment.Environment;
 import jason.environment.grid.GridWorldModel;
 import jason.environment.grid.GridWorldView;
@@ -23,13 +24,14 @@ public class Crossroad extends Environment {
 
     CrossroadModel model;
     CrossroadGraphic gr;
+    public static Crossroad instance;
 
     @Override
     public void init(String[] args) {
-
+        instance = this;
 		//set up model
-        CrossroadModel model = new CrossroadModel(1, this);
-		CrossroadGraphic gr = new CrossroadGraphic();
+        model = new CrossroadModel(1, this);
+		gr = new CrossroadGraphic();
 		gr.setModel(model);
     }
 
@@ -46,5 +48,11 @@ public class Crossroad extends Environment {
 		return true;
 	}
 
-
+	public void step(int time){
+        if (model == null){
+//            throw new RuntimeException("WTF?");
+            logger.info("model is null");
+            return;}
+        model.step(time);
+    }
 }

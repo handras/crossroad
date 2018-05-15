@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/crossroad.iml" filepath="$PROJECT_DIR$/.idea/crossroad.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../src/main/java/main.iml" filepath="$PROJECT_DIR$/../../src/main/java/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../src/main/java/jason.iml" filepath="$PROJECT_DIR$/../../src/main/java/jason.iml" />
     </modules>
   </component>
 </project>
