@@ -27,7 +27,7 @@ public class Crossroad extends Environment {
 		return Literal.parseLiteral("pos("+agentName+ "," + 1 + "," + 1 + ")");
 	}
 
-	public Map<String , Car> cars;
+	public Map<String, Car> cars;
 	
 	@Override
     public void init(String[] args) {
@@ -43,6 +43,7 @@ public class Crossroad extends Environment {
 		}
 		//set up model
 		CrossroadGraphic gr = new CrossroadGraphic();
+		gr.addCars(cars);
     }
 	
 	@Override

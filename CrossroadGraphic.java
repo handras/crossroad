@@ -4,6 +4,7 @@
 
 import java.awt.*;       // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
+import java.util.Map;
 import javax.swing.*;    // Using Swing's components and containers
 
 /** Custom Drawing Code Template */
@@ -16,6 +17,7 @@ public class CrossroadGraphic extends JFrame {
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
     private DrawCanvas canvas;
+    Map<String, Crossroad.Car> cars;
 
     // Constructor to set up the GUI components and event handlers
     public CrossroadGraphic() {
@@ -41,19 +43,23 @@ public class CrossroadGraphic extends JFrame {
         });
     }
 
+    public void addCars(Map cars){
+        this.cars = cars;
+    }
+
+
     private class DrawCanvas extends JPanel {
 
         int top, middle, bottom, left, center1, center2, right;
         int verticalline, horizontalline;
+        int carRadius;
         int width, height;
-
 
         public DrawCanvas(){
             width = CANVAS_WIDTH;
             height = CANVAS_HEIGHT;
             calcCoords();
         }
-
         void sizeChanged(int w, int h){
             width = w;
             height = h;
@@ -70,6 +76,8 @@ public class CrossroadGraphic extends JFrame {
             center1 = (int)(width*0.45f/1.1f);
             center2 = (int)(width*0.65f/1.1f);
             right   = (int)(width*1.05f/1.1f);
+
+            carRadius = (int)(left*0.8f);
 
             verticalline = width/2;
             horizontalline = (middle-top)/2+top;
@@ -101,6 +109,16 @@ public class CrossroadGraphic extends JFrame {
             gcopy.setStroke(dashed);
             gcopy.drawLine(center1, middle+top, center2, middle+top);
             gcopy.dispose();
+
+            drawCars(g);
+        }
+
+        public void drawCars(Graphics g){
+            for (Map.Entry<String, Crossroad.Car> entry  : cars.entrySet()){
+                Crossroad.Car car = entry.getValue();
+                g.setColor(Color.blue);
+                g.fillOval((int)car.x, (int)car.y, carRadius, carRadius);
+            }
         }
 
 //        private void showcase(){

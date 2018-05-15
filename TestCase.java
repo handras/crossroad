@@ -24,6 +24,6 @@ public class TestCase {
         startState = new HashMap();
 //        startState.put("agentName", "X, Y, SPEEDX, SPEEDY, GOALX, GOALY");
         startState.put("car1", "2 ,10, 7,0, 100,0");
-        startState.put("car2", "5 ,10, 5,0, 100,0");
+        startState.put("car2", "50 ,20, 5,0, 100,0");
     }
 }
