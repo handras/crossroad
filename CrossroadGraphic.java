@@ -17,7 +17,8 @@ public class CrossroadGraphic extends JFrame {
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
     private DrawCanvas canvas;
-    Map<String, Crossroad.Car> cars;
+    CrossroadModel model;
+    Map<String, Car> cars;
 
     // Constructor to set up the GUI components and event handlers
     public CrossroadGraphic() {
@@ -43,8 +44,9 @@ public class CrossroadGraphic extends JFrame {
         });
     }
 
-    public void addCars(Map cars){
-        this.cars = cars;
+    public void setModel(CrossroadModel model){
+        this.model = model;
+        this.cars = model.cars;
     }
 
 
@@ -114,8 +116,8 @@ public class CrossroadGraphic extends JFrame {
         }
 
         public void drawCars(Graphics g){
-            for (Map.Entry<String, Crossroad.Car> entry  : cars.entrySet()){
-                Crossroad.Car car = entry.getValue();
+            for (Map.Entry<String, Car> entry  : cars.entrySet()){
+                Car car = entry.getValue();
                 g.setColor(Color.blue);
                 g.fillOval((int)car.x, (int)car.y, carRadius, carRadius);
             }
