@@ -6,6 +6,7 @@ public class TestCase {
     private Map startState;
 
     TestCase(int caseNum){
+        startState = new HashMap();
         switch (caseNum){
             case 1:
                 init1();
@@ -21,9 +22,13 @@ public class TestCase {
 
 
     void init1(){
-        startState = new HashMap();
 //        startState.put("agentName", "X, Y, SPEEDX, SPEEDY, GOALX, GOALY");
-        startState.put("car1", "2 ,10, 7,0, 100,0");
-        startState.put("car2", "50 ,20, 5,0, 100,0");
+//        startState.put("agentName", "trajNum, speed");
+        startState.put("car1", "1 ,10");
+        startState.put("car2", "2 ,10");
+        startState.put("car3", "3 ,10");
+        startState.put("car4", "4 ,10");
+        startState.put("car5", "5 ,10");
+        startState.put("car6", "6 ,10");
     }
 }

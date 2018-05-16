@@ -54,8 +54,8 @@ public class Trajectory {
             new float[]{t6sx, t6sy, t6tx, t6ty, t6gx, t6gy},
     };
     
-    public static void stepOnTraj(int num, float x, float y, float s){
-        float[] trajpoints = points[num-1];
+    public static void stepOnTraj(Car car){
+        float[] trajpoints = points[car.trajectory-1];
         float sx = trajpoints[0];
         float sy = trajpoints[1];
         float tx = trajpoints[2];

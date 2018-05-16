@@ -1,7 +1,6 @@
 /* made after a template found on the web
  * https://www.ntu.edu.sg/home/ehchua/programming/java/J4b_CustomGraphics.html
  */
-
 import java.awt.*;       // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.util.Map;
@@ -118,6 +117,8 @@ public class CrossroadGraphic extends JFrame {
             gcopy.drawLine(center1, middle+top, center2, middle+top);
             gcopy.dispose();
 
+            g.fillOval(0-carRadius/2, 0-carRadius/2, carRadius, carRadius);
+
             drawCars(g);
         }
 
@@ -125,8 +126,17 @@ public class CrossroadGraphic extends JFrame {
             for (Map.Entry<String, Car> entry  : cars.entrySet()){
                 Car car = entry.getValue();
                 g.setColor(Color.blue);
-                g.fillOval((int)car.x, (int)car.y, carRadius, carRadius);
+                g.fillOval((int)convWorXtoImgX(car.x)-carRadius/2,
+                        (int)convWorYtoImgY(car.y)-carRadius/2,
+                        carRadius, carRadius);
             }
+        }
+
+        float convWorXtoImgX(float x){
+            return 46/(right-left)*x+left;
+        }
+        float convWorYtoImgY(float y){
+            return 26/(bottom-top)*y+ top;
         }
 
 //        private void showcase(){
