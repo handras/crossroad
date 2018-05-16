@@ -16,13 +16,13 @@ public class Car {
         this.speed = Float.parseFloat(a[1]);
 
         Crossroad.logger.info(String.format("car before x:%f, y:%f", x, y));
-        Trajectory.initOnTraj(this);
+        Trajectory.initOnTraj(this, 0);
         Crossroad.logger.info(String.format("car after x:%f, y:%f", x, y));
     }
 
     public void step(int steptime){
         try {
-            Trajectory.stepOnTraj(this);
+            Trajectory.stepOnTraj(this, steptime);
         }catch (Exception e){}
     }
 }

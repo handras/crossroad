@@ -54,7 +54,7 @@ public class Trajectory {
             new float[]{t6sx, t6sy, t6tx, t6ty, t6gx, t6gy},
     };
 
-    public static void initOnTraj(Car car){
+    public static void initOnTraj(Car car, int steptime){
         float[] trajpoints = points[car.trajectory-1];
         car.x = trajpoints[0];
         car.y = trajpoints[1];
@@ -62,7 +62,7 @@ public class Trajectory {
         Crossroad.logger.info(String.format("traj after x:%f, y:%f", car.x, car.y));
     }
     
-    public static void stepOnTraj(Car car){
+    public static void stepOnTraj(Car car, int steptime){
         float[] trajpoints = points[car.trajectory-1];
         float sx = trajpoints[0];
         float sy = trajpoints[1];
@@ -71,7 +71,7 @@ public class Trajectory {
         float gx = trajpoints[4];
         float gy = trajpoints[5];
 
-		float animatedSpeed = car.speed/50f;
+		float animatedSpeed = car.speed * steptime/1000f;
 		
 		if(car.trajectory == 1){
 			car.x += animatedSpeed;
