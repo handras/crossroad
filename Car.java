@@ -3,7 +3,12 @@ import java.sql.Time;
 public class Car {
 
     String name;
-    float x,y, sx,sy, gx,gy;
+    // position of the car
+    float x,y;
+    // absolute speed of the car
+    float speed;
+    // where the car moves
+    int trajectory;
 
     public Car(String startState){
         String[] a = startState.split(",");
@@ -13,15 +18,6 @@ public class Car {
         this.sy = Float.parseFloat(a[3]);
         this.gx = Float.parseFloat(a[4]);
         this.gy = Float.parseFloat(a[5]);
-    }
-
-    public Car(float x,float y, float sx,float sy, float gx,float gy){
-        this.x = x;
-        this.y = y;
-        this.sx = sx;
-        this.sy = sy;
-        this.gx = gx;
-        this.gy = gy;
     }
 
     public void step(int steptime){
