@@ -71,6 +71,42 @@ public class Trajectory {
         float gx = trajpoints[4];
         float gy = trajpoints[5];
 
-        // calc where he vehicle goes next
+		float animatedSpeed = car.speed/50f;
+		
+		if(car.trajectory == 1){
+			car.x += animatedSpeed;
+		}
+		if(car.trajectory == 2){
+			car.x -= animatedSpeed;
+		}
+		if(car.trajectory == 3){
+			if(car.x > t3tx){
+				car.y += animatedSpeed;
+			} else {
+				car.x += animatedSpeed;
+			}
+		}
+		if(car.trajectory == 4){
+			if(car.y < t4ty){
+				car.x += animatedSpeed;
+			} else {
+				car.y -= animatedSpeed;
+			}
+		}
+		if(car.trajectory == 5){
+			if(car.x < t5tx){
+				car.y += animatedSpeed;
+			} else {
+				car.x -= animatedSpeed;
+			}
+		}
+		if(car.trajectory == 6){
+			if(car.y < t6ty){
+				car.x -= animatedSpeed;
+			} else {
+				car.y -= animatedSpeed;
+			}
+		}
+		
     }
 }
