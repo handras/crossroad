@@ -12,8 +12,12 @@ public class Car {
 
     public Car(String startState){
         String[] a = startState.split(",");
-        this.x  = Float.parseFloat(a[0]);
-        this.y  = Float.parseFloat(a[1]);
+        this.trajectory = Integer.parseInt(a[0]);
+        this.speed = Float.parseFloat(a[1]);
+
+        Crossroad.logger.info(String.format("car before x:%f, y:%f", x, y));
+        Trajectory.initOnTraj(this);
+        Crossroad.logger.info(String.format("car after x:%f, y:%f", x, y));
     }
 
     public void step(int steptime){

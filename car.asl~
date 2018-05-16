@@ -1,11 +1,11 @@
-// Agent car in project Crossroad.mas2j
-
-/* Initial beliefs and rules */
-
-/* Initial goals */
-
-/* Plans */
-
+// Agent car in project Crossroad.mas2j
+
+/* Initial beliefs and rules */
+
+/* Initial goals */
+
+/* Plans */
+
 +test(X) : true <- 
 	-test(X);
 	.my_name(Name);
@@ -19,18 +19,16 @@
 	.send(lamp, tell, newPed);
 	!tellMyState.
 	
--start(_, _, _, _, _, _) <-
-	+deleted.
-	
 +!tellMyState : true <- 	
 	.my_name(Name);
 	?pos(X, Y);
 	?speed(SPEEDX, SPEEDY);
 	?moveto(GOALX, GOALY);
-	.broadcast(tell, moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY));
-	+safe.
+	.broadcast(tell, moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)).
 	
-+moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)[source(Name)] <-
++moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)[source(Name)] : pos(_, _)
+	<-
+	.print("checking safety")
 	calcIfSafe.
 	
 +collision(Name) <-
@@ -38,4 +36,5 @@
 	.my_name(ME);
 	.send(Name, tell, collision(ME)).
 	
-// Agent car in project Crossroad.mas2j
+// Agent car in project Crossroad.mas2j
+

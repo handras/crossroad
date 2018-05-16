@@ -75,15 +75,16 @@ public class CrossroadGraphic extends JFrame {
 
         public void calcCoords(){
             top    = (int)(height*0.05f/0.7f);
-            middle = (int)(height*0.25f/0.7f);
             bottom = (int)(height*0.65f/0.7f);
 
             left    = (int)(width*0.05f/1.1f);
-            center1 = (int)(width*0.45f/1.1f);
-            center2 = (int)(width*0.65f/1.1f);
             right   = (int)(width*1.05f/1.1f);
 
-            carRadius = (int)(left*0.9f);
+            middle = (int)convWorYtoImgY(6f);
+            center1 = (int)convWorXtoImgX(20f);
+            center2 = (int)convWorXtoImgX(26f);
+
+            carRadius = (int)((center2-center1)*0.35f);
 
             verticalline = width/2;
             horizontalline = (middle-top)/2+top;
@@ -116,40 +117,26 @@ public class CrossroadGraphic extends JFrame {
             gcopy.setStroke(dashed);
             gcopy.drawLine(center1, middle+top, center2, middle+top);
             gcopy.dispose();
-
-            g.fillOval(0-carRadius/2, 0-carRadius/2, carRadius, carRadius);
-
             drawCars(g);
         }
 
         public void drawCars(Graphics g){
             for (Map.Entry<String, Car> entry  : cars.entrySet()){
                 Car car = entry.getValue();
+                int x = (int)convWorXtoImgX(car.x)-carRadius/2;
+                int y = (int)convWorYtoImgY(car.y)-carRadius/2;
+//                Crossroad.logger.info(String.format("car  x: %f  y: %f", car.x, car.y));
+//                Crossroad.logger.info(String.format("drawing %s to x: %d  y: %d",entry.getKey(), x, y));
                 g.setColor(Color.blue);
-                g.fillOval((int)convWorXtoImgX(car.x)-carRadius/2,
-                        (int)convWorYtoImgY(car.y)-carRadius/2,
-                        carRadius, carRadius);
+                g.fillOval(x, y, carRadius, carRadius);
             }
         }
 
         float convWorXtoImgX(float x){
-            return 46/(right-left)*x+left;
+            return (right-left)*x/46.f+left;
         }
         float convWorYtoImgY(float y){
-            return 26/(bottom-top)*y+ top;
+            return (bottom-top)*y/26.f+top;
         }
-
-//        private void showcase(){
-//            g.drawLine(30, 40, 100, 200);
-//            g.drawOval(150, 180, 10, 10);
-//            g.drawRect(200, 210, 20, 30);
-//            g.setColor(Color.RED);       // change the drawing color
-//            g.fillOval(300, 310, 30, 50);
-//            g.fillRect(400, 350, 60, 50);
-//            // Printing texts
-//            g.setColor(Color.WHITE);
-//            g.setFont(new Font("Monospaced", Font.PLAIN, 12));
-//            g.drawString("Testing custom drawing ...", 10, 20);
-//        }
     }
 }

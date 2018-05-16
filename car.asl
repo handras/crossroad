@@ -11,6 +11,8 @@
 	.my_name(Name);
 	.print("im tested, my name is ", Name).
 	
++start(Traj, Speed) <- true.
+	
 +start(X, Y, SPEEDX, SPEEDY, GOALX, GOALY): true <-
 	-start(X, Y, SPEEDX, SPEEDY, GOALX, GOALY);
 	+pos(X, Y);

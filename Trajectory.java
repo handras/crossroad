@@ -53,6 +53,14 @@ public class Trajectory {
             new float[]{t5sx, t5sy, t5tx, t5ty, t5gx, t5gy},
             new float[]{t6sx, t6sy, t6tx, t6ty, t6gx, t6gy},
     };
+
+    public static void initOnTraj(Car car){
+        float[] trajpoints = points[car.trajectory-1];
+        car.x = trajpoints[0];
+        car.y = trajpoints[1];
+
+        Crossroad.logger.info(String.format("traj after x:%f, y:%f", car.x, car.y));
+    }
     
     public static void stepOnTraj(Car car){
         float[] trajpoints = points[car.trajectory-1];
