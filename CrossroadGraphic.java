@@ -106,10 +106,11 @@ public class CrossroadGraphic extends JFrame {
             gcopy.setColor(Color.lightGray);
             //set the stroke of the copy, not the original
             Stroke dashed = new BasicStroke(4, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-                    0, new float[]{35,30}, 0);
+                    0, new float[]{30,25}, 0);
             gcopy.setStroke(dashed);
-            gcopy.drawLine(left, horizontalline, right, horizontalline);
-            gcopy.drawLine(verticalline, horizontalline, verticalline, bottom);
+            gcopy.drawLine(left, horizontalline, center1, horizontalline);
+            gcopy.drawLine(center2, horizontalline, right, horizontalline);
+            gcopy.drawLine(verticalline, middle, verticalline, bottom);
 
             dashed = new BasicStroke(2*top, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
                     0, new float[]{left/5f,left/5f}, left/4f);
