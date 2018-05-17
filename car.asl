@@ -11,27 +11,31 @@
 	.my_name(Name);
 	.print("im tested, my name is ", Name).
 	
-+start(Traj, Speed) <- true.
++start(Traj) <- 
+	.my_name(Name);
+	.print("im ", Name, " and start movig on traj ", Traj);
+	+myTraj(Traj);
+	+unsafe.
 	
-+start(X, Y, SPEEDX, SPEEDY, GOALX, GOALY): true <-
-	-start(X, Y, SPEEDX, SPEEDY, GOALX, GOALY);
-	+pos(X, Y);
-	+speed(SPEEDX, SPEEDY);
-	+moveto(GOALX, GOALY);
-	.send(lamp, tell, newPed);
+// if we sure that we are in danger tell everybody our state
++unsafe <-
 	!tellMyState.
 	
-+!tellMyState : true <- 	
++!tellMyState  <- 	
 	.my_name(Name);
-	?pos(X, Y);
-	?speed(SPEEDX, SPEEDY);
-	?moveto(GOALX, GOALY);
-	.broadcast(tell, moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)).
+	?myTraj(Traj);
+	.print("im ", Name, " and telling my traj: ", Traj);
+	.broadcast(tell, moving(Name, Traj)).
 	
-+moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)[source(Name)] : pos(_, _)
+// when we receive a moving broadcast and we are at the crossroad
++moving(Name, Traj)[source(Name)] : arrived
 	<-
-	.print("checking safety")
+	.print("checking safety");
 	calcIfSafe.
+	
++moving(Name, Traj)[source(Name)] 
+	<-
+	.print("im not arrived").
 	
 +collision(Name) <-
 	.print("WARNING collision with: ", Name);

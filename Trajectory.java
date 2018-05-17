@@ -78,6 +78,7 @@ public class Trajectory {
         car.y = trajpoints[1];
         // inform the car that it moves on this track
         Crossroad.instance.informAgent(car.name, String.format("start(%d)", car.trajectory));
+        Crossroad.instance.informAgent(car.name, "arrived");
     }
 	
 	public static void initOnTraj(Pedestrian ped, int steptime){
