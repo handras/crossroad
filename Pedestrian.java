@@ -12,6 +12,8 @@ public class Pedestrian {
     int trajectory;
 	
 	int arrivalTime;
+	
+	int waitedTime = 0;
 
     public Pedestrian(String startState){
         String[] a = startState.split(",");

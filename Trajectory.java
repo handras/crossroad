@@ -75,17 +75,15 @@ public class Trajectory {
     }
 	
 	public static void initOnTraj(Pedestrian ped, int steptime){
-		//if(ped.arrivalTime >= steptime){
-			float[] trajpoints = points[ped.trajectory+5];
-			ped.x = trajpoints[0];
-			ped.y = trajpoints[1];	
+		float[] trajpoints = points[ped.trajectory+5];
+		ped.x = trajpoints[0];
+		ped.y = trajpoints[1];	
 
-			Crossroad.logger.info(String.format("traj after x:%f, y:%f", ped.x, ped.y));
-		//}
-        
+		Crossroad.logger.info(String.format("traj after x:%f, y:%f", ped.x, ped.y));        
     }
 	
 	public static void stepOnTraj(Pedestrian ped, int steptime){
+		if(ped.arrivalTime <= ped.waitedTime){
 			float[] trajpoints = points[ped.trajectory+5];
 			float sx = trajpoints[0];
 			
@@ -100,6 +98,9 @@ public class Trajectory {
 			if(ped.trajectory == 3){
 				ped.x -= animatedSpeed;
 			}
+		} else {
+			ped.waitedTime += steptime;
+		}
 	}
     
     public static void stepOnTraj(Car car, int steptime){
