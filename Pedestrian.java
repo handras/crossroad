@@ -12,23 +12,26 @@ public class Pedestrian {
     int trajectory;
 	
 	int arrivalTime;
-	
-	int waitedTime = 0;
+	boolean arrived = false;
+
 
     public Pedestrian(String startState){
         String[] a = startState.split(",");
         this.trajectory = Integer.parseInt(a[0]);
         this.speed = Float.parseFloat(a[1]);
 		this.arrivalTime = Integer.parseInt(a[2]);
-
-        Crossroad.logger.info(String.format("pedestrian before x:%f, y:%f", x, y));
-        Trajectory.initOnTraj(this, 0);
-        Crossroad.logger.info(String.format("pedestrian after x:%f, y:%f", x, y));
     }
 
     public void step(int steptime){
         try {
-            Trajectory.stepOnTraj(this, steptime);
+            if(CrExecControl.worldTime >= arrivalTime && !arrived){
+                Trajectory.initOnTraj(this, 0);
+                arrived = true;
+                return;
+            }
+            if(arrived){
+                Trajectory.stepOnTraj(this, steptime);
+            }
         }catch (Exception e){}
     }
 }

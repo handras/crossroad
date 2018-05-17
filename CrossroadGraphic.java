@@ -138,9 +138,9 @@ public class CrossroadGraphic extends JFrame {
 		public void drawPedestrians(Graphics g){
             for (Map.Entry<String, Pedestrian> entry  : peds.entrySet()){
                 Pedestrian ped = entry.getValue();
-				if(ped.arrivalTime <= ped.waitedTime){
-					int x = (int)convWorXtoImgX(ped.x)-carRadius/2;
-					int y = (int)convWorYtoImgY(ped.y)-carRadius/2;
+				if(ped.arrived){
+					int x = (int)convWorXtoImgX(ped.x)-carRadius/4;
+					int y = (int)convWorYtoImgY(ped.y)-carRadius/4;
 					g.setColor(Color.red);
 					g.fillOval(x, y, carRadius/2, carRadius/2);
 				}

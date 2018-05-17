@@ -47,12 +47,18 @@ public class Trajectory {
 	
 	static float t7sx = 17f;
 	static float t7sy = 7f;
+    static float t7gx = 27f;
+    static float t7gy = 7f;
 	
 	static float t8sx = 28f;
 	static float t8sy = 9f;
-	
+    static float t8gx = 17f;
+    static float t8gy = 9f;
+
 	static float t9sx = 27f;
 	static float t9sy = 8f;
+    static float t9gx = 17f;
+    static float t9gy = 8f;
     
     static float[][] points = new float[][]{
             new float[]{t1sx, t1sy, t1tx, t1ty, t1gx, t1gy},
@@ -83,24 +89,23 @@ public class Trajectory {
     }
 	
 	public static void stepOnTraj(Pedestrian ped, int steptime){
-		if(ped.arrivalTime <= ped.waitedTime){
-			float[] trajpoints = points[ped.trajectory+5];
-			float sx = trajpoints[0];
-			
-			float animatedSpeed = ped.speed * steptime/1000f;
-			
-			if(ped.trajectory == 1){
-				ped.x += animatedSpeed;
-			}
-			if(ped.trajectory == 2){
-				ped.x -= animatedSpeed;
-			}
-			if(ped.trajectory == 3){
-				ped.x -= animatedSpeed;
-			}
-		} else {
-			ped.waitedTime += steptime;
-		}
+        float[] trajpoints = points[ped.trajectory+5];
+        float sx = trajpoints[0];
+
+        float animatedSpeed = ped.speed * steptime/1000f;
+
+        if(ped.trajectory == 1){
+            if(ped.x < t7gx)
+                ped.x += animatedSpeed;
+        }
+        if(ped.trajectory == 2){
+            if(ped.x > t8gx)
+                ped.x -= animatedSpeed;
+        }
+        if(ped.trajectory == 3){
+            if(ped.x > t9gx)
+                ped.x -= animatedSpeed;
+        }
 	}
     
     public static void stepOnTraj(Car car, int steptime){

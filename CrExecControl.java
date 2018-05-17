@@ -8,6 +8,8 @@ public class CrExecControl extends jason.control.ExecutionControl {
 
     int TIME = 75;
 
+    static int worldTime=0;
+
     protected void allAgsFinished(){
         if(env == null) {
             env = Crossroad.instance;
@@ -18,6 +20,7 @@ public class CrExecControl extends jason.control.ExecutionControl {
         }catch (Exception e){}
 //        Crossroad.logger.info("All agents finished");
         cycleNumber++;
+        worldTime+=TIME;
         startNewCycle();
         infraControl.informAllAgsToPerformCycle(cycleNumber);
     }
