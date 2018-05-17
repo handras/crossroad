@@ -86,7 +86,7 @@ public class CrossroadGraphic extends JFrame {
             center1 = (int)convWorXtoImgX(20f);
             center2 = (int)convWorXtoImgX(26f);
 
-            carRadius = (int)((center2-center1)*0.35f);
+            carRadius = (int)convWorYtoImgY(.5f);;
 
             verticalline = width/2;
             horizontalline = (middle-top)/2+top;
