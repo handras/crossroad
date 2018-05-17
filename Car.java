@@ -10,19 +10,29 @@ public class Car {
     // where the car moves
     int trajectory;
 
-    public Car(String startState){
+    int arrivalTime;
+    boolean arrived = false;
+
+    public Car(String name, String startState){
+        this.name = name;
         String[] a = startState.split(",");
         this.trajectory = Integer.parseInt(a[0]);
         this.speed = Float.parseFloat(a[1]);
+        this.arrivalTime = Integer.parseInt(a[2]);
 
-        Crossroad.logger.info(String.format("car before x:%f, y:%f", x, y));
         Trajectory.initOnTraj(this, 0);
-        Crossroad.logger.info(String.format("car after x:%f, y:%f", x, y));
     }
 
     public void step(int steptime){
         try {
-            Trajectory.stepOnTraj(this, steptime);
+            if(CrExecControl.worldTime >= arrivalTime && !arrived){
+                Trajectory.initOnTraj(this, 0);
+                arrived = true;
+                return;
+            }
+            if(arrived){
+                Trajectory.stepOnTraj(this, steptime);
+            }
         }catch (Exception e){}
     }
 }

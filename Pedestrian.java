@@ -2,6 +2,7 @@ import java.sql.Time;
 
 public class Pedestrian {
 
+    String name;
     // position
     float x,y;
     // absolute speed
@@ -15,7 +16,8 @@ public class Pedestrian {
 	boolean arrived = false;
 
 
-    public Pedestrian(String startState){
+    public Pedestrian(String name, String startState){
+        this.name = name;
         String[] a = startState.split(",");
         this.trajectory = Integer.parseInt(a[0]);
         this.speed = Float.parseFloat(a[1]);

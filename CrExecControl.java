@@ -6,7 +6,7 @@ public class CrExecControl extends jason.control.ExecutionControl {
     Crossroad env;
     int cycleNumber=0;
 
-    int TIME = 75;
+    int TIME = 15;
 
     static int worldTime=0;
 

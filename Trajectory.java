@@ -76,16 +76,14 @@ public class Trajectory {
         float[] trajpoints = points[car.trajectory-1];
         car.x = trajpoints[0];
         car.y = trajpoints[1];
-
-        Crossroad.logger.info(String.format("traj after x:%f, y:%f", car.x, car.y));
+        // inform the car that it moves on this track
+        Crossroad.instance.informAgent(car.name, String.format("start(%d)", car.trajectory));
     }
 	
 	public static void initOnTraj(Pedestrian ped, int steptime){
 		float[] trajpoints = points[ped.trajectory+5];
 		ped.x = trajpoints[0];
-		ped.y = trajpoints[1];	
-
-		Crossroad.logger.info(String.format("traj after x:%f, y:%f", ped.x, ped.y));        
+		ped.y = trajpoints[1];
     }
 	
 	public static void stepOnTraj(Pedestrian ped, int steptime){

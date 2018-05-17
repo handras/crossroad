@@ -126,12 +126,14 @@ public class CrossroadGraphic extends JFrame {
         public void drawCars(Graphics g){
             for (Map.Entry<String, Car> entry  : cars.entrySet()){
                 Car car = entry.getValue();
-                int x = (int)convWorXtoImgX(car.x)-carRadius/2;
-                int y = (int)convWorYtoImgY(car.y)-carRadius/2;
+                if(car.arrived) {
+                    int x = (int) convWorXtoImgX(car.x) - carRadius / 2;
+                    int y = (int) convWorYtoImgY(car.y) - carRadius / 2;
 //                Crossroad.logger.info(String.format("car  x: %f  y: %f", car.x, car.y));
 //                Crossroad.logger.info(String.format("drawing %s to x: %d  y: %d",entry.getKey(), x, y));
-                g.setColor(Color.blue);
-                g.fillOval(x, y, carRadius, carRadius);
+                    g.setColor(Color.blue);
+                    g.fillOval(x, y, carRadius, carRadius);
+                }
             }
         }
 		
