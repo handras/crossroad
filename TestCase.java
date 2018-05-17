@@ -30,5 +30,8 @@ public class TestCase {
         startState.put("car4", "4,10");
 		//startState.put("car5", "5,10");
         //startState.put("car6", "6,10");
+		startState.put("ped1","1,2,100");
+		startState.put("ped2","2,1,300");
+		startState.put("ped3","3,3,750");
     }
 }

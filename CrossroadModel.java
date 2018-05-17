@@ -6,13 +6,16 @@ import jason.asSyntax.Literal;
 public class CrossroadModel {
 
     private String[] allAgents = new String[]{"car1","car2","car3","car4","car5","car6","emergency","lamp"};
+	private String[] allPeds = new String[]{"ped1","ped2","ped3"};
     public Map<String, Car> cars;
+	public Map<String, Pedestrian> peds;
     Crossroad env;
     CrossroadGraphic graphic;
 
     public CrossroadModel(int test, Crossroad env) {
         this.env=env;
         cars = new HashMap();
+		peds = new HashMap();
 
         TestCase testCase = new TestCase(test);
         for (String ag : allAgents) {
@@ -22,6 +25,15 @@ public class CrossroadModel {
                 env.informAgent(ag, "start("+startState+")");
             }
         }
+		
+		for (String ag : allPeds) {
+            String startState = testCase.getAgentStartState(ag);
+            if (startState != null) {
+                peds.put(ag, new Pedestrian(startState));
+                env.informAgent(ag, "start("+startState+")");
+            }
+        }
+		
     }
 
     public void step(int time){
@@ -31,6 +43,13 @@ public class CrossroadModel {
             if (car==null)
                 continue;
             car.step(time);
+        }
+		
+		for(String ag : allPeds){
+            Pedestrian ped = peds.get(ag);
+            if (ped==null)
+                continue;
+            ped.step(time);
         }
 
         graphic.repaint();

@@ -44,6 +44,15 @@ public class Trajectory {
     static float t6ty = 1.5f;
     static float t6gx = 0f;
     static float t6gy = 1.5f;
+	
+	static float t7sx = 17f;
+	static float t7sy = 7f;
+	
+	static float t8sx = 28f;
+	static float t8sy = 9f;
+	
+	static float t9sx = 27f;
+	static float t9sy = 8f;
     
     static float[][] points = new float[][]{
             new float[]{t1sx, t1sy, t1tx, t1ty, t1gx, t1gy},
@@ -52,6 +61,9 @@ public class Trajectory {
             new float[]{t4sx, t4sy, t4tx, t4ty, t4gx, t4gy},
             new float[]{t5sx, t5sy, t5tx, t5ty, t5gx, t5gy},
             new float[]{t6sx, t6sy, t6tx, t6ty, t6gx, t6gy},
+			new float[]{t7sx, t7sy},
+			new float[]{t8sx, t8sy},
+			new float[]{t9sx, t9sy}
     };
 
     public static void initOnTraj(Car car, int steptime){
@@ -61,6 +73,34 @@ public class Trajectory {
 
         Crossroad.logger.info(String.format("traj after x:%f, y:%f", car.x, car.y));
     }
+	
+	public static void initOnTraj(Pedestrian ped, int steptime){
+		//if(ped.arrivalTime >= steptime){
+			float[] trajpoints = points[ped.trajectory+5];
+			ped.x = trajpoints[0];
+			ped.y = trajpoints[1];	
+
+			Crossroad.logger.info(String.format("traj after x:%f, y:%f", ped.x, ped.y));
+		//}
+        
+    }
+	
+	public static void stepOnTraj(Pedestrian ped, int steptime){
+			float[] trajpoints = points[ped.trajectory+5];
+			float sx = trajpoints[0];
+			
+			float animatedSpeed = ped.speed * steptime/1000f;
+			
+			if(ped.trajectory == 1){
+				ped.x += animatedSpeed;
+			}
+			if(ped.trajectory == 2){
+				ped.x -= animatedSpeed;
+			}
+			if(ped.trajectory == 3){
+				ped.x -= animatedSpeed;
+			}
+	}
     
     public static void stepOnTraj(Car car, int steptime){
         float[] trajpoints = points[car.trajectory-1];

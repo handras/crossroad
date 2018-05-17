@@ -18,6 +18,7 @@ public class CrossroadGraphic extends JFrame {
     private DrawCanvas canvas;
     CrossroadModel model;
     Map<String, Car> cars;
+	Map<String, Pedestrian> peds;
 
     // Constructor to set up the GUI components and event handlers
     public CrossroadGraphic() {
@@ -46,6 +47,7 @@ public class CrossroadGraphic extends JFrame {
     public void setModel(CrossroadModel model){
         this.model = model;
         this.cars = model.cars;
+		this.peds = model.peds;
         model.graphic = this;
     }
 
@@ -118,6 +120,7 @@ public class CrossroadGraphic extends JFrame {
             gcopy.drawLine(center1, middle+top, center2, middle+top);
             gcopy.dispose();
             drawCars(g);
+			drawPedestrians(g);
         }
 
         public void drawCars(Graphics g){
@@ -128,6 +131,16 @@ public class CrossroadGraphic extends JFrame {
 //                Crossroad.logger.info(String.format("car  x: %f  y: %f", car.x, car.y));
 //                Crossroad.logger.info(String.format("drawing %s to x: %d  y: %d",entry.getKey(), x, y));
                 g.setColor(Color.blue);
+                g.fillOval(x, y, carRadius, carRadius);
+            }
+        }
+		
+		public void drawPedestrians(Graphics g){
+            for (Map.Entry<String, Pedestrian> entry  : peds.entrySet()){
+                Pedestrian ped = entry.getValue();
+                int x = (int)convWorXtoImgX(ped.x)-carRadius/2;
+                int y = (int)convWorYtoImgY(ped.y)-carRadius/2;
+                g.setColor(Color.red);
                 g.fillOval(x, y, carRadius, carRadius);
             }
         }
