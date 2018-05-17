@@ -31,7 +31,7 @@ public class Pedestrian {
                 arrived = true;
                 return;
             }
-            if(arrived){
+            if(arrived & Crossroad.instance.lampIsGreen){
                 Trajectory.stepOnTraj(this, steptime);
             }
         }catch (Exception e){}

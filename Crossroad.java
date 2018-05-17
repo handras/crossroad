@@ -26,6 +26,8 @@ public class Crossroad extends Environment {
     CrossroadGraphic gr;
     public static Crossroad instance;
 
+    boolean lampIsGreen = false;
+
     @Override
     public void init(String[] args) {
         instance = this;
