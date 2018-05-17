@@ -10,8 +10,8 @@ import javax.swing.*;    // Using Swing's components and containers
 // A Swing application extends javax.swing.JFrame
 public class CrossroadGraphic extends JFrame {
     // Define constants
-    public static final int CANVAS_WIDTH = 640;
-    public static final int CANVAS_HEIGHT = 640;
+    public static final int CANVAS_WIDTH = 1280;
+    public static final int CANVAS_HEIGHT = 800;
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
@@ -142,7 +142,7 @@ public class CrossroadGraphic extends JFrame {
 					int x = (int)convWorXtoImgX(ped.x)-carRadius/2;
 					int y = (int)convWorYtoImgY(ped.y)-carRadius/2;
 					g.setColor(Color.red);
-					g.fillOval(x, y, carRadius, carRadius);
+					g.fillOval(x, y, carRadius/2, carRadius/2);
 				}
             }
         }
