@@ -51,7 +51,9 @@ public class CrossroadModel {
         graphic.repaint();
     }
 
-    public void calcSafety(String ag){
+    public void calcSafety(String ag, String other, int traj, float speed){
+        String info = String.format("%s check safet against %s on traj %d with speed: %f", ag, other, traj, speed);
+        Crossroad.logger.info(info);
 
     }
 }

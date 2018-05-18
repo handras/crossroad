@@ -8,7 +8,7 @@ public class CrExecControl extends jason.control.ExecutionControl {
 
     int TIME = 15;
 
-    static int worldTime=0;
+    static int worldTime=-1000;
 
     protected void allAgsFinished(){
         if(env == null) {

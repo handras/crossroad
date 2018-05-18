@@ -1,12 +1,9 @@
 /*
 
-Defines the Heathrow Robots MAS
+Defines the agents in the crossroad
 
 For more information about this example, see
- . airportChronicle.pdf and
- . Rafael H. Bordini, Mehdi Dastani, Jurgen Dix, and Amal El Fallah
-   Seghrouchni, editors. Multi-Agent Programming: Languages, Platforms
-   and Applications. Chapter 1. Springer-Verlag, 2005.
+ 
 
 */
 
@@ -16,6 +13,8 @@ MAS crossroad {
 
     environment:
          Crossroad
+		 
+	executionControl: CrExecControl
 
     agents:
          car #6;

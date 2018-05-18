@@ -19,8 +19,6 @@ public class Car {
         this.trajectory = Integer.parseInt(a[0]);
         this.speed = Float.parseFloat(a[1]);
         this.arrivalTime = Integer.parseInt(a[2]);
-
-        Trajectory.initOnTraj(this, 0);
     }
 
     public void step(int steptime){

@@ -1,9 +1,7 @@
 import java.util.*;
 import java.util.logging.Logger;
 
-import jason.asSyntax.Literal;
-import jason.asSyntax.Term;
-import jason.asSyntax.Structure;
+import jason.asSyntax.*;
 import jason.control.ExecutionControl;
 import jason.environment.Environment;
 import jason.environment.grid.GridWorldModel;
@@ -30,6 +28,7 @@ public class Crossroad extends Environment {
 
     @Override
     public void init(String[] args) {
+        Locale.setDefault(Locale.ENGLISH); //float in string formatted with decimal point
         instance = this;
 		//set up model
         model = new CrossroadModel(1, this);
@@ -45,8 +44,23 @@ public class Crossroad extends Environment {
     public boolean executeAction(String ag, Structure action) {
         logger.info(ag+" doing: "+ action);
 		if (action.getFunctor().equals("calcIfSafe")) {
-		    model.calcSafety(ag);
+		    try {
+                String other = ((Atom)action.getTerm(0)).getFunctor();
+                int traj = (int)((NumberTerm)action.getTerm(1)).solve();
+                float speed = (float)((NumberTerm)action.getTerm(2)).solve();
+                model.calcSafety(ag, other, traj, speed);
+            }catch (Exception e){
+		        Crossroad.logger.info(e.getMessage());
+            }
 		}
+        if (action.getFunctor().equals("setSpeed")) {
+		    try {
+                float speed = (float)((NumberTerm)action.getTerm(0)).solve();
+                model.cars.get(ag).speed = speed;
+            }catch (Exception e){
+                Crossroad.logger.info(e.getMessage());
+            }
+        }
 		return true;
 	}
 

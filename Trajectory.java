@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class Trajectory {
 
     //these trajectories are defined on the keresztezode_irany.png
@@ -77,7 +79,9 @@ public class Trajectory {
         car.x = trajpoints[0];
         car.y = trajpoints[1];
         // inform the car that it moves on this track
-        Crossroad.instance.informAgent(car.name, String.format("start(%d)", car.trajectory));
+        String startString = String.format(Locale.ENGLISH, "start(%d, %f)", car.trajectory, car.speed);
+//        Crossroad.logger.info(startString);
+        Crossroad.instance.informAgent(car.name, startString);
         Crossroad.instance.informAgent(car.name, "arrived");
     }
 	
@@ -85,6 +89,8 @@ public class Trajectory {
 		float[] trajpoints = points[ped.trajectory+5];
 		ped.x = trajpoints[0];
 		ped.y = trajpoints[1];
+		Crossroad.instance.informAgent("lamp", "newPed");
+		Crossroad.logger.info("newPed");
     }
 	
 	public static void stepOnTraj(Pedestrian ped, int steptime){
