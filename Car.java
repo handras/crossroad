@@ -21,6 +21,21 @@ public class Car {
         this.arrivalTime = Integer.parseInt(a[2]);
     }
 
+    private Car(String name){}
+
+    public Car clone(String name){
+        Car c = new Car(name);
+        c.x = x;
+        c.y = y;
+        c.speed = speed;
+        c.trajectory = trajectory;
+        return c;
+    }
+    
+    public boolean Collide(Car b){
+        return Math.sqrt((x-b.x)*(x-b.x) + (y-b.y)*(y-b.y)) < 4;
+    }
+
     public void step(int steptime){
         try {
             if(CrExecControl.worldTime >= arrivalTime && !arrived){

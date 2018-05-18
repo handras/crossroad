@@ -1,4 +1,6 @@
+import javax.swing.text.StyledEditorKit;
 import java.util.Locale;
+import java.util.Spliterator;
 
 public class Trajectory {
 
@@ -46,22 +48,22 @@ public class Trajectory {
     static float t6ty = 1.5f;
     static float t6gx = 0f;
     static float t6gy = 1.5f;
-	
-	static float t7sx = 17f;
-	static float t7sy = 7f;
+
+    static float t7sx = 17f;
+    static float t7sy = 7f;
     static float t7gx = 27f;
     static float t7gy = 7f;
-	
-	static float t8sx = 28f;
-	static float t8sy = 9f;
+
+    static float t8sx = 28f;
+    static float t8sy = 9f;
     static float t8gx = 17f;
     static float t8gy = 9f;
 
-	static float t9sx = 27f;
-	static float t9sy = 8f;
+    static float t9sx = 27f;
+    static float t9sy = 8f;
     static float t9gx = 17f;
     static float t9gy = 8f;
-    
+
     static float[][] points = new float[][]{
             new float[]{t1sx, t1sy, t1tx, t1ty, t1gx, t1gy},
             new float[]{t2sx, t2sy, t2tx, t2ty, t2gx, t2gy},
@@ -69,13 +71,13 @@ public class Trajectory {
             new float[]{t4sx, t4sy, t4tx, t4ty, t4gx, t4gy},
             new float[]{t5sx, t5sy, t5tx, t5ty, t5gx, t5gy},
             new float[]{t6sx, t6sy, t6tx, t6ty, t6gx, t6gy},
-			new float[]{t7sx, t7sy},
-			new float[]{t8sx, t8sy},
-			new float[]{t9sx, t9sy}
+            new float[]{t7sx, t7sy},
+            new float[]{t8sx, t8sy},
+            new float[]{t9sx, t9sy}
     };
 
-    public static void initOnTraj(Car car, int steptime){
-        float[] trajpoints = points[car.trajectory-1];
+    public static void initOnTraj(Car car, int steptime) {
+        float[] trajpoints = points[car.trajectory - 1];
         car.x = trajpoints[0];
         car.y = trajpoints[1];
         // inform the car that it moves on this track
@@ -84,37 +86,37 @@ public class Trajectory {
         Crossroad.instance.informAgent(car.name, startString);
         Crossroad.instance.informAgent(car.name, "arrived");
     }
-	
-	public static void initOnTraj(Pedestrian ped, int steptime){
-		float[] trajpoints = points[ped.trajectory+5];
-		ped.x = trajpoints[0];
-		ped.y = trajpoints[1];
-		Crossroad.instance.informAgent("lamp", "newPed");
-		Crossroad.logger.info("newPed");
+
+    public static void initOnTraj(Pedestrian ped, int steptime) {
+        float[] trajpoints = points[ped.trajectory + 5];
+        ped.x = trajpoints[0];
+        ped.y = trajpoints[1];
+        Crossroad.instance.informAgent("lamp", String.format("newPed(%s)", ped.name));
+        Crossroad.logger.info("newPed");
     }
-	
-	public static void stepOnTraj(Pedestrian ped, int steptime){
-        float[] trajpoints = points[ped.trajectory+5];
+
+    public static void stepOnTraj(Pedestrian ped, int steptime) {
+        float[] trajpoints = points[ped.trajectory + 5];
         float sx = trajpoints[0];
 
-        float animatedSpeed = ped.speed * steptime/1000f;
+        float animatedSpeed = ped.speed * steptime / 1000f;
 
-        if(ped.trajectory == 1){
-            if(ped.x < t7gx)
+        if (ped.trajectory == 1) {
+            if (ped.x < t7gx)
                 ped.x += animatedSpeed;
         }
-        if(ped.trajectory == 2){
-            if(ped.x > t8gx)
+        if (ped.trajectory == 2) {
+            if (ped.x > t8gx)
                 ped.x -= animatedSpeed;
         }
-        if(ped.trajectory == 3){
-            if(ped.x > t9gx)
+        if (ped.trajectory == 3) {
+            if (ped.x > t9gx)
                 ped.x -= animatedSpeed;
         }
-	}
-    
-    public static void stepOnTraj(Car car, int steptime){
-        float[] trajpoints = points[car.trajectory-1];
+    }
+
+    public static void stepOnTraj(Car car, int steptime) {
+        float[] trajpoints = points[car.trajectory - 1];
         float sx = trajpoints[0];
         float sy = trajpoints[1];
         float tx = trajpoints[2];
@@ -122,42 +124,66 @@ public class Trajectory {
         float gx = trajpoints[4];
         float gy = trajpoints[5];
 
-		float animatedSpeed = car.speed * steptime/1000f;
-		
-		if(car.trajectory == 1){
-			car.x += animatedSpeed;
-		}
-		if(car.trajectory == 2){
-			car.x -= animatedSpeed;
-		}
-		if(car.trajectory == 3){
-			if(car.x > t3tx){
-				car.y += animatedSpeed;
-			} else {
-				car.x += animatedSpeed;
-			}
-		}
-		if(car.trajectory == 4){
-			if(car.y < t4ty){
-				car.x += animatedSpeed;
-			} else {
-				car.y -= animatedSpeed;
-			}
-		}
-		if(car.trajectory == 5){
-			if(car.x < t5tx){
-				car.y += animatedSpeed;
-			} else {
-				car.x -= animatedSpeed;
-			}
-		}
-		if(car.trajectory == 6){
-			if(car.y < t6ty){
-				car.x -= animatedSpeed;
-			} else {
-				car.y -= animatedSpeed;
-			}
-		}
-		
+        float animatedSpeed = car.speed * steptime / 1000f;
+
+        if (car.trajectory == 1) {
+            car.x += animatedSpeed;
+        }
+        if (car.trajectory == 2) {
+            car.x -= animatedSpeed;
+        }
+        if (car.trajectory == 3) {
+            if (car.x > t3tx) {
+                car.y += animatedSpeed;
+            } else {
+                car.x += animatedSpeed;
+            }
+        }
+        if (car.trajectory == 4) {
+            if (car.y < t4ty) {
+                car.x += animatedSpeed;
+            } else {
+                car.y -= animatedSpeed;
+            }
+        }
+        if (car.trajectory == 5) {
+            if (car.x < t5tx) {
+                car.y += animatedSpeed;
+            } else {
+                car.x -= animatedSpeed;
+            }
+        }
+        if (car.trajectory == 6) {
+            if (car.y < t6ty) {
+                car.x -= animatedSpeed;
+            } else {
+                car.y -= animatedSpeed;
+            }
+        }
+
+    }
+
+    public static boolean calcCollision(Car a, Car b) {
+        Car clonea = a.clone("dummy a");
+        Car cloneb = b.clone("dummy b");
+        float minspeed = Math.min(clonea.speed, cloneb.speed);
+        int maxiter = (int) (60. / minspeed / (CrExecControl.TIME / 1000.));
+//        Crossroad.logger.info(String.format("max iter count %d", maxiter));
+        for (int t = 0; t < maxiter; t++) {
+            if (clonea.Collide(cloneb)) {
+                Crossroad.instance.informAgent(a.name, String.format("collision(%s, %d)", b.name, b.trajectory));
+                return true;
+            }
+            stepOnTraj(clonea, CrExecControl.TIME);
+            stepOnTraj(cloneb, CrExecControl.TIME);
+        }
+        return false;
+    }
+
+    public static void avoidCollision(Car a, Car b){
+        while (calcCollision(a, b)){
+            Crossroad.logger.info(String.format("%s is slowing",a.name));
+            a.speed-=0.5;
+        }
     }
 }

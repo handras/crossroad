@@ -52,9 +52,17 @@ public class CrossroadModel {
     }
 
     public void calcSafety(String ag, String other, int traj, float speed){
-        String info = String.format("%s check safet against %s on traj %d with speed: %f", ag, other, traj, speed);
+        String info = String.format("%s checks safety against %s on traj %d with speed: %f", ag, other, traj, speed);
         Crossroad.logger.info(info);
+        Car me = cars.get(ag);
+        Car othercar = cars.get(other);
+        Trajectory.calcCollision(me, othercar);
+    }
 
+    public void avoidCollision(String ag, String other){
+        Car me = cars.get(ag);
+        Car othercar = cars.get(other);
+        Trajectory.avoidCollision(me, othercar);
     }
 }
 

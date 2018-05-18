@@ -1,9 +1,8 @@
 /*
 
-Defines the agents in the crossroad
+Defines the agents in the crossroad enviroonment
 
-For more information about this example, see
- 
+For more information about this example, see 
 
 */
 
@@ -12,7 +11,7 @@ MAS crossroad {
     infrastructure: Centralised
 
     environment:
-         Crossroad
+         Crossroad(2)
 		 
 	executionControl: CrExecControl
 

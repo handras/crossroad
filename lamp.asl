@@ -9,16 +9,16 @@ numPed(0).
 /* Plans */
 
 // stop the trafic if enough pedestrian is present 
-+moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)[source(Name)]: 
++moving(Name, Traj, Speed)[source(Name)]: 
 	numPed(NUM) & NUM>2 
 	<-
 	.send(Name, tell, collision(lamp)).
 	
 // not enough pedestrian to stop the trafic
-+moving(Name, X, Y, SPEEDX, SPEEDY, GOALX, GOALY)[source(Name)]
++moving(Name, Traj, speed)[source(Name)]
 	<- true.
 	
-+newPed : true <-
++newPed(Name) : true <-
 	.print("new pedastrian arrived");
 	!updateCnt.
 	
@@ -26,7 +26,6 @@ numPed(0).
 	?numPed(X);
 	-numPed(X);
 	+numPed(X+1);
-	.print("ped cnt ", X+1);
-	-newPed.
+	.print("ped cnt ", X+1).
 // Agent lamp in project Crossroad.mas2j
 

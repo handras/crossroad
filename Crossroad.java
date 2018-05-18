@@ -31,7 +31,7 @@ public class Crossroad extends Environment {
         Locale.setDefault(Locale.ENGLISH); //float in string formatted with decimal point
         instance = this;
 		//set up model
-        model = new CrossroadModel(1, this);
+        model = new CrossroadModel(Integer.parseInt(args[0]), this);
 		gr = new CrossroadGraphic();
 		gr.setModel(model);
     }
@@ -57,6 +57,14 @@ public class Crossroad extends Environment {
 		    try {
                 float speed = (float)((NumberTerm)action.getTerm(0)).solve();
                 model.cars.get(ag).speed = speed;
+            }catch (Exception e){
+                Crossroad.logger.info(e.getMessage());
+            }
+        }
+        if (action.getFunctor().equals("avoidcollision")) {
+            try {
+                String other = ((Atom)action.getTerm(0)).getFunctor();
+                model.avoidCollision(ag, other);
             }catch (Exception e){
                 Crossroad.logger.info(e.getMessage());
             }

@@ -1,6 +1,13 @@
 // Agent car in project Crossroad.mas2j
 
 /* Initial beliefs and rules */
+//first trajactory has priority over the second
+prio(1,4).
+prio(1,5).
+prio(1,6). 
+prio(2,6).
+prio(3,5).
+prio(5,6).
 
 /* Initial goals */
 
@@ -55,8 +62,12 @@
 	setSpeed(S);
 	-setSpeed(S).
 	
-+collision(Name) <-
-	.print("WARNING collision with: ", Name).
++collision(Name, Traj) : myTraj(MyTraj) & prio(MyTraj, Traj)<-
+	.print("WARNING: ", Name, " should slow down").
+	
++collision(Name, Traj) : myTraj(MyTraj)<-
+	.print("WARNING: i should let pass ", Name);
+	avoidcollision(Name).
 	
 // Agent car in project Crossroad.mas2j
 

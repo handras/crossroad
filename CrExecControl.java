@@ -6,9 +6,13 @@ public class CrExecControl extends jason.control.ExecutionControl {
     Crossroad env;
     int cycleNumber=0;
 
-    int TIME = 15;
+    static int TIME = 10;
 
     static int worldTime=-1000;
+
+    public int getCycleNumber(){
+        return cycleNumber;
+    }
 
     protected void allAgsFinished(){
         if(env == null) {
@@ -22,6 +26,6 @@ public class CrExecControl extends jason.control.ExecutionControl {
         cycleNumber++;
         worldTime+=TIME;
         startNewCycle();
-        infraControl.informAllAgsToPerformCycle(cycleNumber);
+        infraControl.informAllAgsToPerformCycle(getCycleNumber());
     }
 }
