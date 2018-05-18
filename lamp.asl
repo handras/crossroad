@@ -9,23 +9,40 @@ numPed(0).
 /* Plans */
 
 // stop the trafic if enough pedestrian is present 
-+moving(Name, Traj, Speed)[source(Name)]: 
-	numPed(NUM) & NUM>2 
++moving(Name, Traj, Speed)[source(Name)]: numPed(NUM) & NUM>2 
 	<-
 	.send(Name, tell, collision(lamp)).
 	
 // not enough pedestrian to stop the trafic
-+moving(Name, Traj, speed)[source(Name)]
++moving(Name, Traj, Speed)[source(Name)]
 	<- true.
 	
 +newPed(Name) : true <-
-	.print("new pedastrian arrived");
-	!updateCnt.
+	.print(Name, " pedestrian arrived");
+	!incrCnt.
 	
-+!updateCnt : true <-
+-newPed(Name) : true <-
+	.print(Name, " new pedestrian has crossed");
+	!decrCnt.
+	
++!incrCnt : true <-
 	?numPed(X);
 	-numPed(X);
 	+numPed(X+1);
 	.print("ped cnt ", X+1).
+	
++!decrCnt : true <-
+	?numPed(X);
+	-numPed(X);
+	+numPed(X-1);
+	.print("ped cnt ", X+1).	
+	
++numPed(3) <-
+	!stopTrafic.
+	
++!stopTrafic <-
+	calcSafeLamp;
+	if(safe){signGreen}else{!stopTrafic}.
+	
 // Agent lamp in project Crossroad.mas2j
 

@@ -45,11 +45,11 @@ public class TestCase {
         //startState.put("car2", "2,8,50");
         startState.put("car3", "3,10,50");
         //startState.put("car4", "4,10,100");
-        startState.put("car5", "5,10,50");
+        startState.put("car5", "5,10,1700");
         //startState.put("car6", "6,9,100");
 
         startState.put("ped1","1,2,500");
         startState.put("ped2","2,2,1500");
-        startState.put("ped3","3,3,1600");
+        startState.put("ped3","3,3,1550");
     }
 }

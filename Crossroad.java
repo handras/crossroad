@@ -42,7 +42,7 @@ public class Crossroad extends Environment {
 	
 	@Override
     public boolean executeAction(String ag, Structure action) {
-        logger.info(ag+" doing: "+ action);
+        //logger.info(ag+" doing: "+ action);
 		if (action.getFunctor().equals("calcIfSafe")) {
 		    try {
                 String other = ((Atom)action.getTerm(0)).getFunctor();
@@ -69,6 +69,21 @@ public class Crossroad extends Environment {
                 Crossroad.logger.info(e.getMessage());
             }
         }
+        if (action.getFunctor().equals("signGreen")) {
+            try {
+                lampIsGreen = true;
+            }catch (Exception e){
+                Crossroad.logger.info(e.getMessage());
+            }
+        }
+        if (action.getFunctor().equals("calcSafeLamp")) {
+            try {
+                model.calcSafeLamp();
+            }catch (Exception e){
+                Crossroad.logger.info(e.getMessage());
+            }
+        }
+
 		return true;
 	}
 

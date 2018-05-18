@@ -59,6 +59,15 @@ public class CrossroadModel {
         Trajectory.calcCollision(me, othercar);
     }
 
+    public void calcSafeLamp(){
+        for (Car car : cars.values()){
+            if (!Trajectory.calcSafeLamp(car));
+            return;
+        }
+        Crossroad.logger.info("lamp is safe");
+        Crossroad.instance.informAgent("lamp", "safe");
+    }
+
     public void avoidCollision(String ag, String other){
         Car me = cars.get(ag);
         Car othercar = cars.get(other);

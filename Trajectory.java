@@ -180,6 +180,23 @@ public class Trajectory {
         return false;
     }
 
+    public static boolean calcSafeLamp(Car c){
+        Car clonea = c.clone("dummy a");
+        Car cloneb = c.clone("dummy b");
+        cloneb.x = 21.5f;
+        cloneb.y = 7.5f;
+        float minspeed = Math.min(clonea.speed, cloneb.speed);
+        int maxiter = (int) (60. / minspeed / (CrExecControl.TIME / 1000.));
+        for (int t = 0; t < maxiter; t++) {
+            if (clonea.Collide(cloneb)) {
+                Crossroad.logger.info(String.format("%s collides with lamp, speed %f", c.name, c.speed));
+                return false;
+            }
+            stepOnTraj(clonea, CrExecControl.TIME);
+        }
+        return true;
+    }
+
     public static void avoidCollision(Car a, Car b){
         while (calcCollision(a, b)){
             Crossroad.logger.info(String.format("%s is slowing",a.name));

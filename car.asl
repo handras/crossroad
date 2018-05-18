@@ -40,8 +40,7 @@ prio(5,6).
 +moving(Name, Traj, Speed)[source(Name)] : arrived
 	<-
 	.print("checking safety");
-	calcIfSafe(Name, Traj, Speed);
-	!ensureSafety.
+	calcIfSafe(Name, Traj, Speed).
 	
 +moving(Name, Traj)[source(Name)] 
 	<-
@@ -49,25 +48,17 @@ prio(5,6).
 	-moving(Name, Traj)[source(Name)].
 	//.print("im not arrived atthe crossroad").
 	
-+!ensureSafety: safe 
-	<- true.
-	
-+!ensureSafety: unsafe & collision(Other)
-	<- .print("im not safe, warn this: ", Other);
-	?myTraj(Traj);	
-	?mySpeed(Speed);
-	.send(Other, tell, moving(Name, Traj, Speed)).	
-	
-+!ensureSafety: setSpeed(S) <-
-	setSpeed(S);
-	-setSpeed(S).
++collision(lamp) <-
+	setSpeed(0).
 	
 +collision(Name, Traj) : myTraj(MyTraj) & prio(MyTraj, Traj)<-
 	.print("WARNING: ", Name, " should slow down").
 	
 +collision(Name, Traj) : myTraj(MyTraj)<-
 	.print("WARNING: i should let pass ", Name);
-	avoidcollision(Name).
+	avoidcollision(Name);
+	.print("now im safe");
+	+safe.
 	
 // Agent car in project Crossroad.mas2j
 
